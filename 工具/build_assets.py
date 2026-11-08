@@ -20,6 +20,8 @@ IMG = os.path.join(SITE, "assets", "img")
 SRC = os.path.dirname(SITE)                        # 原图目录（默认与 portfolio 并列）
 
 RIGHT_BLEED = 110  # 裁掉的右边距，用来去掉右上角的截图角标
+LEFT_TRIM = 46     # 去掉左侧残留的界面边缘 / 暗边
+EDGE_TRIM = 4      # 去掉上下 1px 暗框
 
 
 SLUG = {
@@ -73,7 +75,7 @@ def main():
             im = crop_ratio(im, 16 / 9)
         else:
             w, h = im.size
-            im = im.crop((0, 0, w - RIGHT_BLEED, h))
+            im = im.crop((LEFT_TRIM, EDGE_TRIM, w - RIGHT_BLEED, h - EDGE_TRIM))
             im = crop_ratio(im, 4 / 3)
 
         big = im.resize((1600, int(round(1600 * im.height / im.width))), Image.LANCZOS)
