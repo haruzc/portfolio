@@ -86,7 +86,14 @@ git push -u origin main
 
 ### 首屏
 
-姓名、电话、邮箱、GPA 等在 `index.html`，统计数字也在首屏的 `<dl class="hero-stats">` 里。
+姓名、电话、邮箱、GPA 等在 `index.html`，统计数字在 `<dl class="hero-stats">` 里。
+首屏大图在 `.hero-figure` 的 `src/srcset`，现在用的是 `hero-scene`（由 `场景图.png` 裁成 3:2 生成）。
+
+### 产品展板
+
+项目最后一节「05 展板」用的是 `assets/img/proj-board-1600.webp`，
+原图是根目录的 `产品展板.jpg`（9933×12862，CMYK），脚本会自动转 RGB 并缩放。
+换新版面时替换这张 jpg 再跑一次 `build_assets.py` 即可。
 
 ### 加图 / 换图
 
@@ -94,7 +101,7 @@ git push -u origin main
 
 ```powershell
 cd 工具
-python build_assets.py     # 统一裁切、去角标、压成 WebP
+python build_assets.py     # 统一裁切、去角标、压成 WebP（含场景图 / 产品展板）
 python build_og.py         # 重新生成分享预览图
 ```
 

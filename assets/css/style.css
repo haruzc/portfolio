@@ -170,9 +170,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .hero-main {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
   gap: clamp(28px, 4.4vw, 64px);
-  align-items: end;
+  align-items: center;
   margin-top: clamp(24px, 3.4vw, 40px);
 }
 .hero-title {
@@ -214,9 +214,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero-figure img {
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
   background: var(--paper-alt);
 }
 .hero-figure figcaption {
@@ -358,6 +358,25 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .project-copy p + p { margin-top: 14px; }
 
+/* 调研四点 */
+.points {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px clamp(16px, 2vw, 32px);
+  margin-bottom: clamp(34px, 4vw, 56px);
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.points li { display: grid; gap: 4px; }
+.points span {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  color: var(--accent);
+}
+.points b { font-size: 14.5px; font-weight: 600; letter-spacing: -0.01em; }
+.points p { font-size: 13px; line-height: 1.65; color: var(--muted); }
+
 /* ---------- 阶段 ---------- */
 .stage + .stage { margin-top: clamp(40px, 5vw, 72px); }
 .stage-head {
@@ -408,14 +427,65 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .r-16x9 { aspect-ratio: 16 / 9; }
 .r-3x2 { aspect-ratio: 3 / 2; }
 .r-4x5 { aspect-ratio: 4 / 5; }
+.r-3x4 { aspect-ratio: 3 / 4; }
 .r-1x1 { aspect-ratio: 1 / 1; }
 .r-wide { aspect-ratio: 3.6 / 1; }
 
 .sp-4 { grid-column: span 4; }
 .sp-5 { grid-column: span 5; }
+.sp-6 { grid-column: span 6; }
 .sp-7 { grid-column: span 7; }
 .sp-8 { grid-column: span 8; }
 .sp-12 { grid-column: span 12; }
+
+/* 展板旁的文字栏 */
+.stage-aside {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.stage-aside h5 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+}
+.stage-aside ul { margin-top: 14px; }
+.stage-aside li {
+  display: flex;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.stage-aside li span {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--accent);
+  padding-top: 3px;
+}
+.stage-aside-note { margin-top: 14px; font-size: 13px; color: var(--muted); }
+
+.swatches {
+  display: flex;
+  gap: 18px;
+  margin-top: 20px;
+}
+.swatches span {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.swatches i {
+  display: block;
+  width: 46px;
+  height: 30px;
+  border: 1px solid rgba(25, 24, 20, .1);
+}
 
 .project-close {
   margin-top: clamp(32px, 4vw, 56px);
@@ -836,13 +906,13 @@ body.lb-open { overflow: hidden; }
   .brand-sub, .head-cta { display: none; }
   .nav { font-size: 12.5px; gap: 14px; }
   .hero-main { grid-template-columns: minmax(0, 1fr); gap: 26px; align-items: start; }
-  .hero-figure img { aspect-ratio: 4 / 5; }
+  .hero-figure img { aspect-ratio: 3 / 2; }
   .hero-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 14px; }
   .stat-contact { grid-column: 1 / -1; }
   .stat-contact dd { flex-direction: row; flex-wrap: wrap; gap: 0 18px; }
   .sec-head { flex-direction: column; align-items: flex-start; gap: 6px; }
   .sec-note { text-align: left; }
-  .sp-4, .sp-5, .sp-7, .sp-8, .sp-12 { grid-column: span 12; }
+  .sp-4, .sp-5, .sp-6, .sp-7, .sp-8, .sp-12 { grid-column: span 12; }
   .r-wide { aspect-ratio: 3 / 1; }
   .pairs { grid-template-columns: minmax(0, 1fr); }
   .clay-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -865,6 +935,7 @@ body.lb-open { overflow: hidden; }
   .lb-tags { display: none; }
   .lb-img { max-height: 52vh; }
   .stage-grid { gap: 8px; }
+  .points { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; }
   .pairs { gap: 26px; }
 }
 

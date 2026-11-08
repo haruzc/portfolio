@@ -40,14 +40,14 @@ d.text((pad, 280), "工业设计 / 产品建模与渲染", font=f_role, fill=ink
 
 d.line([(pad, 342), (W - pad, 342)], fill=line, width=2)
 
-d.text((pad, 362), "智能眼镜设计项目：草图 · 结构 · 渲染 · 场景", font=f_text, fill=muted)
+d.text((pad, 362), "轻量化消费级 AI 眼镜：调研 · 草图 · 建模 · 渲染", font=f_text, fill=muted)
 d.text((pad, 392), "30+ 件产品建模与渲染练习", font=f_text, fill=muted)
 d.text((pad, 428), "正在找工业设计 / 产品设计实习", font=f_text, fill=accent)
 d.text((pad, 474), "251009010226@st.sdju.edu.cn   ·   198 4148 3039", font=f_text, fill=muted)
 d.text((pad, 518), "LEI QICHUN  ·  INDUSTRIAL DESIGN  ·  SHANGHAI", font=f_mono, fill=light)
 
 # 右侧 2x2 项目图
-thumbs = ["proj-sketch-1", "proj-render-2", "proj-wear", "proj-scene"]
+thumbs = ["proj-sketch-1", "proj-render-2", "hero-scene", "proj-detail"]
 tw, th, gap = 222, 148, 8
 block_w = tw * 2 + gap
 left = W - pad - block_w

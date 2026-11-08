@@ -21,6 +21,8 @@ import re
 
 from PIL import Image
 
+Image.MAX_IMAGE_PIXELS = None  # 展板原图是 9933x12862
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(HERE)
 IMG = os.path.join(SITE, "assets", "img")
@@ -201,6 +203,13 @@ def main():
     if os.path.exists(scene_path):
         im = Image.open(scene_path).convert("RGB")
         save_pair(crop_ratio(im, 16 / 9), "proj-scene", max_w=2000)
+        # 首屏大图：同一张场景，3:2
+        save_pair(crop_ratio(im, 3 / 2), "hero-scene", max_w=2400)
+
+    board_path = os.path.join(ROOT, "产品展板.jpg")
+    if os.path.exists(board_path):
+        print("产品展板：")
+        save_pair(Image.open(board_path).convert("RGB"), "proj-board", max_w=1800)
 
     with open(os.path.join(SITE, "assets", "img-meta.json"), "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, indent=1)
