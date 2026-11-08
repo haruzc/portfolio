@@ -15,13 +15,27 @@
 用法：python build_assets.py
 """
 import glob
+import io
 import json
 import os
 import re
 
-from PIL import Image
+from PIL import Image, ImageCms
 
 Image.MAX_IMAGE_PIXELS = None  # 展板原图是 9933x12862
+
+
+def load_cmyk_as_srgb(path, target_w=1800):
+    """展板是 CMYK + Japan Color 2001 Coated，必须按 ICC 转 sRGB，否则会发绿。"""
+    im = Image.open(path)
+    icc = im.info.get("icc_profile")
+    if im.width > target_w:
+        im = im.resize((target_w, int(round(target_w * im.height / im.width))), Image.LANCZOS)
+    if icc:
+        src = ImageCms.ImageCmsProfile(io.BytesIO(icc))
+        dst = ImageCms.createProfile("sRGB")
+        return ImageCms.profileToProfile(im, src, dst, outputMode="RGB", renderingIntent=0)
+    return im.convert("RGB")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(HERE)
@@ -209,7 +223,7 @@ def main():
     board_path = os.path.join(ROOT, "产品展板.jpg")
     if os.path.exists(board_path):
         print("产品展板：")
-        save_pair(Image.open(board_path).convert("RGB"), "proj-board", max_w=1800)
+        save_pair(load_cmyk_as_srgb(board_path), "proj-board")
 
     with open(os.path.join(SITE, "assets", "img-meta.json"), "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, indent=1)

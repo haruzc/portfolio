@@ -437,6 +437,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .sp-7 { grid-column: span 7; }
 .sp-8 { grid-column: span 8; }
 .sp-12 { grid-column: span 12; }
+.is-center { grid-column: 3 / span 8; }
 
 /* 展板旁的文字栏 */
 .stage-aside {
@@ -913,6 +914,8 @@ body.lb-open { overflow: hidden; }
   .sec-head { flex-direction: column; align-items: flex-start; gap: 6px; }
   .sec-note { text-align: left; }
   .sp-4, .sp-5, .sp-6, .sp-7, .sp-8, .sp-12 { grid-column: span 12; }
+  .is-center { grid-column: span 12; }
+.is-center { grid-column: 3 / span 8; }
   .r-wide { aspect-ratio: 3 / 1; }
   .pairs { grid-template-columns: minmax(0, 1fr); }
   .clay-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }

@@ -92,7 +92,7 @@ git push -u origin main
 ### 产品展板
 
 项目最后一节「05 展板」用的是 `assets/img/proj-board-1600.webp`，
-原图是根目录的 `产品展板.jpg`（9933×12862，CMYK），脚本会自动转 RGB 并缩放。
+原图是根目录的 `产品展板.jpg`（9933×12862，CMYK + Japan Color 2001 Coated 配置文件），脚本会按内嵌 ICC 转成 sRGB 再缩放；直接 `convert("RGB")` 会发绿。
 换新版面时替换这张 jpg 再跑一次 `build_assets.py` 即可。
 
 ### 加图 / 换图
