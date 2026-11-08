@@ -1,20 +1,20 @@
 # 作品集 · 雷啟春
 
-一个纯静态的单页作品集。没有构建步骤、没有依赖、没有外部字体和 CDN，
-把所有文件丢到 GitHub Pages 上就能用。
+纯静态单页作品集：一个智能眼镜设计项目 + 30 多件产品建模与渲染练习。
+没有构建步骤、没有依赖、没有外部字体和 CDN，推到 GitHub Pages 就能用。
 
 ```
 portfolio/
-├─ index.html              # 页面结构（首屏文案、导航、过程、关于）
+├─ index.html              # 页面结构：首屏 / 项目 / 渲染 / 建模 / 关于
 ├─ assets/
 │  ├─ css/style.css        # 全部样式
-│  ├─ js/works.js          # ★ 作品数据：名字、分类、说明、标签、是否精选
-│  ├─ js/app.js            # 交互：筛选、大图查看（键盘/滑动）、滚动出现
-│  ├─ img/                 # 18 组图，每组 800px（列表）+ 1600px（大图/首屏）
-│  ├─ og.jpg               # 微信/领英等分享时显示的预览图
+│  ├─ js/works.js          # ★ 作品数据：名字、分类、说明、白模对照
+│  ├─ js/app.js            # 交互：筛选、大图查看、滚动出现
+│  ├─ img/                 # 48 组图，每组 800px + 1600px 两档 WebP
+│  ├─ og.jpg               # 微信/领英等分享预览图
 │  └─ favicon.svg
-├─ 工具/                   # 换图、重做分享图的小脚本（可选，Python + Pillow）
-├─ .nojekyll               # 告诉 GitHub Pages 不要走 Jekyll
+├─ 工具/                   # 换图、重做分享图的小脚本（Python + Pillow）
+├─ .nojekyll
 └─ README.md
 ```
 
@@ -22,12 +22,10 @@ portfolio/
 
 ## 1. 本地预览
 
-直接双击 `index.html` 也能看（已验证），但为了和线上一致，建议起一个本地服务：
+双击 `index.html` 也能看，但和线上一致建议起服务：
 
 ```powershell
-three-serve --port 8899        # 本机已有的静态服务
-# 或
-python -m http.server 8899
+three-serve --port 8899     # 或 python -m http.server 8899
 ```
 
 打开 <http://127.0.0.1:8899/>。
@@ -36,19 +34,17 @@ python -m http.server 8899
 
 ## 2. 上线到 GitHub Pages
 
-### 方式 A：网页上传（不用命令行，最稳）
+### 网页上传（不用命令行）
 
-1. 打开 <https://github.com/new>，仓库名建议 `portfolio`，选 **Public**，不要勾模板。
+1. <https://github.com/new> 建仓库，名字建议 `portfolio`，选 **Public**。
 2. 进仓库 → **Add file → Upload files**，把本目录**里面**的文件拖进去
-   （`index.html`、`assets/`、`工具/`、`.nojekyll`、`README.md`；不要把 `portfolio` 这一层文件夹本身拖进去）。
-   `.nojekyll` 是隐藏文件，看不到就先传其余文件再单独创建。
+   （`index.html`、`assets/`、`工具/`、`.nojekyll`、`README.md`），不要带 `portfolio` 这层文件夹。
 3. **Commit changes**。
-4. 仓库 **Settings → Pages**：Source 选 **Deploy from a branch**，
-   Branch 选 **main**、目录 **/ (root)** → **Save**。
+4. **Settings → Pages**：Source 选 **Deploy from a branch**，Branch **main**，目录 **/ (root)** → Save。
 
-等 1–2 分钟，地址是 `https://<你的用户名>.github.io/portfolio/`，放进简历即可。
+1–2 分钟后地址是 `https://<用户名>.github.io/portfolio/`。
 
-### 方式 B：命令行（本目录已经是 git 仓库，有提交历史）
+### 命令行（本目录已是 git 仓库，有提交历史）
 
 ```powershell
 cd "C:\Users\haru\Desktop\练习文件\portfolio"
@@ -56,80 +52,64 @@ git remote add origin https://github.com/<用户名>/portfolio.git
 git push -u origin main
 ```
 
-然后按上面第 4 步开 Pages。
-
-### 方式 C：GitHub CLI
-
-```powershell
-gh auth login          # 你机器上装了 gh，但还没登录
-cd portfolio
-gh repo create portfolio --public --source=. --push
-gh api -X POST repos/<用户名>/portfolio/pages -f "source[branch]=main" -f "source[path]=/"
-```
-
-> 仓库名不是 `portfolio` 也可以，站内链接都是相对路径；只是地址会变成
+> 仓库名不是 `portfolio` 也行，站内都是相对路径，只是地址会变成
 > `https://<用户名>.github.io/<仓库名>/`。
 
 ---
 
-## 3. 改内容
+## 3. 内容在哪改
 
-### 作品信息（名字 / 说明 / 分类 / 标签 / 精选）
+### 产品练习（渲染 / 场景 / AI 辅助）
 
-只改 `assets/js/works.js`：
+`assets/js/works.js` 的 `WORKS`：
 
 ```js
 {
-  slug: "robot-vacuum",        // 对应 assets/img/robot-vacuum-800.webp / -1600.webp
-  name: "扫地机器人",
-  en: "Robot Vacuum",
-  cat: "home",                 // home 小家电与个护 / electronics 消费电子 / tools 设备与工具
-  date: "2026-06-12",          // 排序用，新的在前
-  short: "06.12",              // 卡片上显示
-  tags: ["曲面衔接", "分件"],   // 大图里的标签；复刻件写「现有产品复刻」
+  slug: "rc-hair-dryer",       // 对应 assets/img/rc-hair-dryer-800.webp / -1600.webp
+  name: "吹风机",
+  en: "Hair Dryer",
+  cat: "render",               // render 棚拍渲染 | scene 场景合成 | ai AI 辅助
+  tags: ["长筒曲面", "格栅"],   // 大图里的标签
   desc: "一句话说明这件练了什么。",
-  featured: true,              // true = 进首屏「精选」（建议保持 6 件）
 }
 ```
 
-- 分类显示名在同一文件的 `CATS` 里。
-- 姓名、电话、邮箱：改 `index.html`（首屏、关于、页脚）和 `works.js` 里的 `SITE`。
-- 首页大图固定用耳机那张，想换成别的：改 `index.html` 里 `.hero-figure` 的 `src/srcset`。
+分类显示名在 `CATS`；白模→渲染对照在 `PAIRS`；14 件白模列表在 `CLAY`。
 
-### 加一件新作品
+### 项目案例（首屏以下的整段「01 项目」）
 
-1. 准备两张 4:3 图：1600×1200 和 800×600 的 WebP，命名 `<slug>-1600.webp`、`<slug>-800.webp`，
-   丢进 `assets/img/`。
-2. 在 `works.js` 的 `WORKS` 里照抄一条。
-3. 想让首页大图/精选用新图，改对应位置即可。
+直接在 `index.html` 里改，每个阶段是一块 `<div class="stage">`：
 
-### 批量处理原图（可选）
+- 阶段标题：`.stage-head` 里的 `<h4>` 和 `<p>`
+- 图片：`.stage-grid` 里的 `<figure>`，用 `sp-4 / sp-5 / sp-7 / sp-8 / sp-12` 控制占几列，
+  用 `r-4x3 / r-16x9 / r-3x2 / r-4x5 / r-1x1 / r-wide` 控制裁切比例，加 `is-contain` 则完整显示不裁切。
 
-把原图（KeyShot 导出）放进 `portfolio` 上一级目录，在 `工具/SLUG` 里加一条映射，然后：
+### 首屏
+
+姓名、电话、邮箱、GPA 等在 `index.html`，统计数字也在首屏的 `<dl class="hero-stats">` 里。
+
+### 加图 / 换图
+
+把原图按原目录结构放好，然后在 `工具/` 下：
 
 ```powershell
 cd 工具
-python build_assets.py     # 统一裁 4:3、去掉右上角截图角标、压成 WebP
+python build_assets.py     # 统一裁切、去角标、压成 WebP
 python build_og.py         # 重新生成分享预览图
 ```
 
-需要 Python + Pillow。
+脚本里的映射表（`RENDER_MAP / CLAY_MAP / PROJECT_MAP` 等）决定文件名对应哪个 slug，
+新增作品时加一行即可。需要 Python + Pillow。
 
 ---
 
-## 4. 上线后建议改的一处
+## 4. 上线后建议改
 
-`index.html` 里的 `og:image` 现在是相对路径 `assets/og.jpg`。微信、领英等抓取预览图时
-通常需要完整地址，上线后改成：
+把 `index.html` 里的 `og:image` 换成完整地址（微信/领英抓预览图需要绝对 URL）：
 
 ```html
 <meta property="og:image" content="https://<用户名>.github.io/portfolio/assets/og.jpg">
 ```
 
-顺手可以加一行 `<meta property="og:url" content="https://<用户名>.github.io/portfolio/">`。
-
-其他可选：
-
-- **自定义域名**：Settings → Pages → Custom domain，再在仓库根目录放一个 `CNAME` 文件。
-- **访问统计**：Cloudflare Web Analytics 或 Umami，在 `</body>` 前加一段脚本即可。
-- **不要提交原图**：`assets/img/` 里已是压缩图，整站不到 1 MB。
+其他可选：自定义域名（Settings → Pages → Custom domain + 仓库根目录放 `CNAME` 文件）；
+访问统计（Cloudflare Web Analytics / Umami 的脚本放 `</body>` 前）。

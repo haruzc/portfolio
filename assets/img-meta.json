@@ -1,92 +1,345 @@
 {
- "tape": {
-  "w": 1600,
-  "h": 1200,
-  "src": "1.png"
+ "rc-ev-charger": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "switch": {
-  "w": 1600,
-  "h": 1200,
-  "src": "SWITCH.png"
+ "rc-sharpener": {
+  "size": [
+   1380,
+   1035
+  ],
+  "kind": "render"
  },
- "ev-charger": {
-  "w": 1600,
-  "h": 1200,
-  "src": "充电枪.png"
+ "rc-hair-dryer": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "sharpener": {
-  "w": 1600,
-  "h": 1200,
-  "src": "卷笔刀.png"
+ "rc-vacuum": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "hair-dryer": {
-  "w": 1600,
-  "h": 1200,
-  "src": "吹风机.png"
+ "rc-hand-dryer": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "vacuum": {
-  "w": 1600,
-  "h": 1200,
-  "src": "咖啡机.png"
+ "rc-robot-vacuum": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "hand-dryer": {
-  "w": 1600,
-  "h": 1200,
-  "src": "手部烘干机.png"
+ "rc-headphones": {
+  "size": [
+   1380,
+   1035
+  ],
+  "kind": "render"
  },
- "robot-vacuum": {
-  "w": 1600,
-  "h": 1200,
-  "src": "扫地机.png"
+ "rc-iron": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "speaker": {
-  "w": 1600,
-  "h": 1200,
-  "src": "播放器.png"
+ "rc-blender": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "headphones": {
-  "w": 1600,
-  "h": 1200,
-  "src": "正交.png"
+ "rc-massage-gun": {
+  "size": [
+   1465,
+   1099
+  ],
+  "kind": "render"
  },
- "iron": {
-  "w": 1600,
-  "h": 1200,
-  "src": "熨斗.png"
+ "rc-knife": {
+  "size": [
+   1380,
+   1035
+  ],
+  "kind": "render"
  },
- "blender": {
-  "w": 1600,
-  "h": 1200,
-  "src": "破壁机.png"
+ "rc-router": {
+  "size": [
+   1380,
+   1035
+  ],
+  "kind": "render"
  },
- "massage-gun": {
-  "w": 1600,
-  "h": 1200,
-  "src": "筋膜枪.png"
+ "sc-mouse": {
+  "size": [
+   1085,
+   814
+  ],
+  "kind": "scene"
  },
- "knife": {
-  "w": 1600,
-  "h": 1200,
-  "src": "美工刀.png"
+ "sc-speaker": {
+  "size": [
+   1090,
+   818
+  ],
+  "kind": "scene"
  },
- "router": {
-  "w": 1600,
-  "h": 1200,
-  "src": "路由器.png"
+ "sc-tape": {
+  "size": [
+   1092,
+   819
+  ],
+  "kind": "scene"
  },
- "router-clay": {
-  "w": 1600,
-  "h": 900,
-  "src": "路由器白模.png"
+ "ai-robot-vacuum": {
+  "size": [
+   1092,
+   819
+  ],
+  "kind": "ai"
  },
- "fan": {
-  "w": 1600,
-  "h": 1200,
-  "src": "风扇.png"
+ "ai-blender": {
+  "size": [
+   1094,
+   820
+  ],
+  "kind": "ai"
  },
- "mouse": {
-  "w": 1600,
-  "h": 1200,
-  "src": "鼠标.png"
+ "ai-sharpener": {
+  "size": [
+   1096,
+   822
+  ],
+  "kind": "ai"
+ },
+ "ai-ev-charger": {
+  "size": [
+   1016,
+   762
+  ],
+  "kind": "ai"
+ },
+ "ai-switch": {
+  "size": [
+   1092,
+   819
+  ],
+  "kind": "ai"
+ },
+ "clay-switch": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-ev-charger": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-hair-dryer": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-vacuum": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-headphones": {
+  "size": [
+   1046,
+   588
+  ],
+  "kind": "clay"
+ },
+ "clay-bottle": {
+  "size": [
+   1436,
+   808
+  ],
+  "kind": "clay"
+ },
+ "clay-robot-vacuum": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-speaker": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-juicer": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-tape": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-massage-gun": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-router": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-fan": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "clay-mouse": {
+  "size": [
+   1600,
+   900
+  ],
+  "kind": "clay"
+ },
+ "proj-sketch-1": {
+  "size": [
+   1800,
+   1217
+  ],
+  "kind": "project"
+ },
+ "proj-sketch-2": {
+  "size": [
+   1431,
+   1216
+  ],
+  "kind": "project"
+ },
+ "proj-sketch-3": {
+  "size": [
+   1459,
+   1196
+  ],
+  "kind": "project"
+ },
+ "proj-wire-1": {
+  "size": [
+   894,
+   247
+  ],
+  "kind": "project"
+ },
+ "proj-wire-2": {
+  "size": [
+   796,
+   718
+  ],
+  "kind": "project"
+ },
+ "proj-clay": {
+  "size": [
+   1800,
+   1241
+  ],
+  "kind": "project"
+ },
+ "proj-render-1": {
+  "size": [
+   1800,
+   792
+  ],
+  "kind": "project"
+ },
+ "proj-render-2": {
+  "size": [
+   1800,
+   850
+  ],
+  "kind": "project"
+ },
+ "proj-render-3": {
+  "size": [
+   1800,
+   1258
+  ],
+  "kind": "project"
+ },
+ "proj-detail": {
+  "size": [
+   1800,
+   1012
+  ],
+  "kind": "project"
+ },
+ "proj-wear": {
+  "size": [
+   819,
+   1045
+  ],
+  "kind": "project"
+ },
+ "proj-run": {
+  "size": [
+   1099,
+   600
+  ],
+  "kind": "project"
+ },
+ "proj-table": {
+  "size": [
+   1094,
+   819
+  ],
+  "kind": "project"
+ },
+ "proj-scene": {
+  "size": [
+   1800,
+   1112
+  ],
+  "kind": "project"
+ },
+ "proj-scene-hi": {
+  "size": [
+   2000,
+   1125
+  ],
+  "kind": "project"
  }
 }

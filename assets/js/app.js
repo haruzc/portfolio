@@ -1,6 +1,6 @@
 /* =====================================================================
-   交互：渲染列表 / 分类筛选 / 大图查看 / 滚动出现
-   数据来自 works.js（SITE、WORKS、CATS）
+   交互：作品网格 / 筛选 / 白模对照 / 大图查看
+   数据来自 works.js（SITE、WORKS、CATS、PAIRS、CLAY）
    ===================================================================== */
 (function () {
   "use strict";
@@ -9,48 +9,29 @@
   const srcset = (slug) => `${src(slug, 800)} 800w, ${src(slug, 1600)} 1600w`;
   const catLabel = (id) => (CATS.find((c) => c.id === id) || {}).label || "";
 
-  const FEATURED = WORKS.filter((w) => w.featured);
-
-  /* 图片淡入 */
   function markLoaded(el) {
     if (el.complete && el.naturalWidth) el.classList.add("is-loaded");
     else el.addEventListener("load", () => el.classList.add("is-loaded"), { once: true });
   }
 
-  /* ---------- 卡片 ---------- */
-  function cardHTML(w, index, variant) {
-    const sizes =
-      variant === "feat"
-        ? "(max-width: 680px) 92vw, (max-width: 1100px) 46vw, 31vw"
-        : "(max-width: 680px) 46vw, (max-width: 1100px) 30vw, 23vw";
+  /* ---------- 作品卡 ---------- */
+  function cardHTML(w, index) {
     return `
-      <button class="card" type="button" data-index="${index}"
-              aria-label="查看作品：${w.name}">
+      <button class="card" type="button" data-index="${index}" aria-label="查看作品：${w.name}">
         <span class="card-media">
-          <img alt="${w.name}（${w.en}）产品渲染图" loading="lazy" decoding="async"
-               src="${src(w.slug)}" srcset="${srcset(w.slug)}" sizes="${sizes}"
+          <img alt="${w.name}（${w.en}）" loading="lazy" decoding="async"
+               src="${src(w.slug)}" srcset="${srcset(w.slug)}"
+               sizes="(max-width: 680px) 46vw, (max-width: 1100px) 30vw, 23vw"
                width="800" height="600">
           <span class="card-hint" aria-hidden="true">↗</span>
         </span>
         <span class="card-meta">
           <span class="card-name">${w.name}</span>
-          ${variant === "work" ? `<span class="card-cat">${catLabel(w.cat)}</span>` : ""}
-          <span class="card-sub">${w.en}</span>
         </span>
       </button>`;
   }
 
-  /* ---------- 精选 ---------- */
-  function renderFeatured() {
-    const grid = document.getElementById("featuredGrid");
-    if (!grid) return;
-    grid.innerHTML = FEATURED
-      .map((w) => `<article class="feat" data-reveal>${cardHTML(w, WORKS.indexOf(w), "feat")}</article>`)
-      .join("");
-    grid.querySelectorAll("img").forEach(markLoaded);
-  }
-
-  /* ---------- 全部练习 ---------- */
+  /* ---------- 筛选 + 网格 ---------- */
   let activeCat = "all";
   let visibleWorks = [];
 
@@ -69,29 +50,55 @@
     const empty = document.getElementById("gridEmpty");
     if (!grid) return;
 
-    visibleWorks = WORKS
-      .map((w, i) => ({ w, i }))
-      .filter(({ w }) => activeCat === "all" || w.cat === activeCat)
-      .sort((a, b) => (a.w.date < b.w.date ? 1 : -1));
+    visibleWorks = WORKS.filter((w) => activeCat === "all" || w.cat === activeCat);
 
-    const cards = visibleWorks
-      .map(({ w, i }) => `<article class="work" data-reveal>${cardHTML(w, i, "work")}</article>`)
+    grid.innerHTML = visibleWorks
+      .map((w) => `<article class="work" data-reveal>${cardHTML(w, WORKS.indexOf(w))}</article>`)
       .join("");
-
-    // 「全部」时补一张尾卡，避免最后一行只剩一张图
-    const endCard =
-      activeCat === "all"
-        ? `<div class="work-end">
-             <span class="end-label">17 / 17 · Archive end</span>
-             <h3>练习还在继续，正式项目也在攒。想看看源文件或建模过程，可以直接找我。</h3>
-             <a href="mailto:251009010226@st.sdju.edu.cn">251009010226@st.sdju.edu.cn</a>
-           </div>`
-        : "";
-
-    grid.innerHTML = cards + endCard;
     grid.querySelectorAll("img").forEach(markLoaded);
     if (empty) empty.hidden = visibleWorks.length > 0;
     revealIn(grid);
+  }
+
+  /* ---------- 白模 → 渲染 ---------- */
+  function renderPairs() {
+    const box = document.getElementById("pairs");
+    if (!box) return;
+    box.innerHTML = PAIRS.map(
+      (p) => `
+      <article class="pair" data-reveal>
+        <div class="pair-media">
+          <figure class="pair-item">
+            <img src="${src(p.clay)}" srcset="${srcset(p.clay)}" sizes="(max-width: 860px) 46vw, 24vw"
+                 alt="${p.name}白模" loading="lazy" decoding="async">
+            <figcaption>白模</figcaption>
+          </figure>
+          <figure class="pair-item">
+            <img src="${src(p.render)}" srcset="${srcset(p.render)}" sizes="(max-width: 860px) 46vw, 24vw"
+                 alt="${p.name}渲染图" loading="lazy" decoding="async">
+            <figcaption>渲染</figcaption>
+          </figure>
+        </div>
+        <h4>${p.name}</h4>
+        <p>${p.note}</p>
+      </article>`
+    ).join("");
+    box.querySelectorAll("img").forEach(markLoaded);
+  }
+
+  /* ---------- 14 件白模 ---------- */
+  function renderClay() {
+    const grid = document.getElementById("clayGrid");
+    if (!grid) return;
+    grid.innerHTML = CLAY.map(
+      (c) => `
+      <figure class="clay" data-reveal>
+        <img src="${src(c.slug)}" srcset="${srcset(c.slug)}" sizes="(max-width: 680px) 30vw, 13vw"
+             alt="${c.name}白模" loading="lazy" decoding="async">
+        <figcaption>${c.name}</figcaption>
+      </figure>`
+    ).join("");
+    grid.querySelectorAll("img").forEach(markLoaded);
   }
 
   /* ---------- 大图 ---------- */
@@ -114,23 +121,21 @@
 
   const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-  function showWork(list, pos) {
-    const w = list[pos];
-    if (!w) return;
-    lb.list = list;
+  function show(item, pos, total) {
     lb.pos = pos;
-    lb.image.src = src(w.slug, 1600);
-    lb.image.srcset = srcset(w.slug);
-    lb.image.alt = `${w.name}（${w.en}）产品渲染图`;
-    lb.title.textContent = w.name;
-    lb.en.textContent = w.en;
-    lb.desc.textContent = w.desc || "";
-    lb.tags.innerHTML = (w.tags || []).map((t) => `<li>${t}</li>`).join("");
-    lb.count.textContent = `${String(pos + 1).padStart(2, "0")} / ${String(list.length).padStart(2, "0")}`;
+    lb.image.src = item.src;
+    lb.image.srcset = item.srcFull && item.srcFull !== item.src ? `${item.src} 800w, ${item.srcFull} 1600w` : "";
+    lb.image.alt = item.alt || item.name || "";
+    lb.title.textContent = item.name || "";
+    lb.en.textContent = item.en || "";
+    lb.desc.textContent = item.desc || "";
+    lb.tags.innerHTML = (item.tags || []).map((t) => `<li>${t}</li>`).join("");
+    lb.count.textContent = total > 1
+      ? `${String(pos + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`
+      : "";
     lb.prev.disabled = pos === 0;
-    lb.next.disabled = pos === list.length - 1;
-    // 单件时隐藏翻页按钮，避免点了没反应
-    const single = list.length < 2;
+    lb.next.disabled = pos === total - 1;
+    const single = total < 2;
     lb.prev.hidden = single;
     lb.next.hidden = single;
     lb.body.scrollTop = 0;
@@ -147,7 +152,8 @@
 
   function openLightbox(list, pos) {
     lb.lastFocus = document.activeElement;
-    showWork(list, pos);
+    lb.list = list;
+    show(list[pos], pos, list.length);
     lb.root.hidden = false;
     document.body.classList.add("lb-open");
     setBackgroundInert(true);
@@ -164,7 +170,19 @@
   function step(dir) {
     const next = lb.pos + dir;
     if (next < 0 || next >= lb.list.length) return;
-    showWork(lb.list, next);
+    show(lb.list[next], next, lb.list.length);
+  }
+
+  function workToItem(w) {
+    return {
+      src: src(w.slug, 800),
+      srcFull: src(w.slug, 1600),
+      name: w.name,
+      en: w.en,
+      desc: w.desc,
+      tags: w.tags,
+      alt: `${w.name}（${w.en}）`,
+    };
   }
 
   function wireLightbox() {
@@ -176,7 +194,6 @@
       if (e.target === lb.root || e.target === lb.body) closeLightbox();
     });
 
-    // 焦点陷阱
     document.addEventListener("keydown", (e) => {
       if (lb.root.hidden) return;
       if (e.key === "Escape") { closeLightbox(); return; }
@@ -189,22 +206,13 @@
       if (!items.length) return;
       const first = items[0];
       const last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
 
-    // 手机左右滑动翻页
     let startX = null;
     let startY = null;
-    lb.body.addEventListener("pointerdown", (e) => {
-      startX = e.clientX;
-      startY = e.clientY;
-    });
+    lb.body.addEventListener("pointerdown", (e) => { startX = e.clientX; startY = e.clientY; });
     lb.body.addEventListener("pointerup", (e) => {
       if (startX === null) return;
       const dx = e.clientX - startX;
@@ -214,23 +222,27 @@
     });
   }
 
-  /* 卡片点击（事件委托） */
+  /* 作品卡点击 */
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".card");
-    if (!card) return;
-    const index = Number(card.dataset.index);
-    const work = WORKS[index];
-    if (!work) return;
-
-    if (card.closest(".work-grid")) {
-      const list = visibleWorks.map((v) => v.w);
-      openLightbox(list, list.indexOf(work));
-    } else {
-      openLightbox(FEATURED, FEATURED.indexOf(work));
+    if (card) {
+      const w = WORKS[Number(card.dataset.index)];
+      if (!w) return;
+      const list = visibleWorks.map(workToItem);
+      openLightbox(list, Math.max(0, visibleWorks.indexOf(w)));
+      return;
+    }
+    // 项目区图片：单张查看
+    const fig = e.target.closest(".fg");
+    if (fig) {
+      const img = fig.querySelector("img");
+      if (!img) return;
+      const full = img.currentSrc.replace("-800.webp", "-1600.webp");
+      openLightbox([{ src: full, name: img.alt, alt: img.alt }], 0);
     }
   });
 
-  /* ---------- 筛选 ---------- */
+  /* ---------- 筛选事件 ---------- */
   function wireFilters() {
     const box = document.getElementById("filters");
     if (!box) return;
@@ -276,20 +288,17 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  /* ---------- 启动 ---------- */
   function init() {
-    renderFeatured();
     renderFilters();
     renderGrid();
+    renderPairs();
+    renderClay();
     wireFilters();
     wireLightbox();
     wireHeader();
     revealIn(document);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();
