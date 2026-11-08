@@ -64,6 +64,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .skip:focus { top: 16px; }
 
+.noscript {
+  padding: 18px var(--gutter);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.noscript a { border-bottom: 1px solid rgba(243, 241, 236, .4); }
+
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* ---------- header ---------- */
